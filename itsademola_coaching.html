@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0a0a0a; --dark: #111111; --card: #161616; --border: #2a2a2a;
+    --gold: #c9a84c; --gold-light: #e8c96a; --gold-dim: rgba(201,168,76,0.12);
+    --white: #f5f5f0; --muted: #888880; --text: #d8d8d0;
+  }
+  body { background: var(--black); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; }
+  .page { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  .header { text-align: center; margin-bottom: 56px; }
+  .brand-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 6px 16px; margin-bottom: 28px; }
+  .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 10vw, 86px); line-height: 0.95; color: var(--white); letter-spacing: 0.02em; margin-bottom: 8px; }
+  .header h1 span { color: var(--gold); }
+  .header-sub { font-size: 14px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 16px; }
+  .gold-line { width: 48px; height: 2px; background: var(--gold); margin: 24px auto 0; }
+
+  .intro { background: var(--card); border-left: 3px solid var(--gold); padding: 28px 32px; margin-bottom: 48px; font-size: 15px; line-height: 1.8; }
+  .intro strong { color: var(--white); font-weight: 600; }
+
+  .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--white); letter-spacing: 0.03em; margin-bottom: 24px; line-height: 1; }
+
+  .who-section { margin-bottom: 48px; }
+  .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .who-item { background: var(--card); border: 1px solid var(--border); padding: 16px 20px 16px 36px; font-size: 14px; position: relative; }
+  .who-item::before { content: '→'; position: absolute; left: 14px; color: var(--gold); font-size: 13px; }
+
+  .tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
+  .tier { background: var(--card); border: 1px solid var(--border); padding: 28px 24px; position: relative; overflow: hidden; }
+  .tier.featured { border-color: var(--gold); }
+  .tier.featured::before { content: 'COMPETITION PREP'; position: absolute; top: 0; right: 0; background: var(--gold); color: var(--black); font-size: 9px; font-weight: 700; letter-spacing: 0.15em; padding: 5px 12px; }
+  .tier-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--white); letter-spacing: 0.04em; margin-bottom: 4px; line-height: 1; }
+  .tier-tagline { font-size: 12px; color: var(--muted); margin-bottom: 20px; line-height: 1.4; }
+  .tier-price { margin-bottom: 24px; }
+  .tier-price .amount { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--gold); line-height: 1; }
+  .tier-price .period { font-size: 13px; color: var(--muted); margin-left: 4px; }
+  .tier-includes { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .tier-features { list-style: none; }
+  .tier-features li { font-size: 13px; color: var(--text); padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
+  .tier-features li:last-child { border-bottom: none; }
+  .tier-features li::before { content: '✓'; color: var(--gold); font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+
+  .process-section { margin-bottom: 48px; }
+  .process-step { display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); align-items: start; }
+  .process-step:last-child { border-bottom: none; }
+  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--gold); line-height: 1; opacity: 0.6; }
+  .step-content h4 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .step-content p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  .bio-section { background: var(--card); border: 1px solid var(--border); padding: 32px; margin-bottom: 48px; }
+  .bio-header { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px; }
+  .bio-icon { width: 48px; height: 48px; background: var(--gold-dim); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .bio-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--white); letter-spacing: 0.03em; line-height: 1; margin-bottom: 4px; }
+  .bio-title { font-size: 12px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+  .bio-text { font-size: 14px; color: var(--text); line-height: 1.8; }
+  .bio-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
+  .bio-stat { text-align: center; padding: 14px; background: var(--black); border: 1px solid var(--border); }
+  .bio-stat .num { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); line-height: 1; display: block; }
+  .bio-stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; display: block; }
+
+  .early-section { background: var(--gold-dim); border: 1px solid var(--gold); padding: 28px 32px; margin-bottom: 48px; }
+  .early-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--white); margin-bottom: 12px; letter-spacing: 0.03em; margin-top: 8px; }
+  .early-section p { font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
+  .bonus-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .bonus-list li { font-size: 14px; color: var(--white); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+  .bonus-list li::before { content: '★'; color: var(--gold); font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+
+  .cta-section { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); }
+  .cta-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--white); letter-spacing: 0.03em; margin-bottom: 8px; }
+  .cta-section p { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+  .cta-btn { display: inline-block; background: var(--gold); color: var(--black); font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 16px 40px; cursor: pointer; border: none; margin: 0 8px 12px; font-family: 'DM Sans', sans-serif; }
+  .cta-note { font-size: 12px; color: var(--muted); margin-top: 16px; }
+
+  @media (max-width: 580px) {
+    .tiers { grid-template-columns: 1fr; }
+    .who-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="brand-tag">Latent Potential Coaching</div>
+    <h1>YOUR <span>STAGE</span><br>STARTS HERE</h1>
+    <div class="header-sub">Natural Bodybuilding · Online Coaching</div>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="intro">
+    Most people who want to compete never do. Not because they lack the physique, but because they don't have the right structure, the right guidance, or someone who has been through exactly what they're about to go through.<br><br>
+    <strong>Latent Potential Coaching exists for the person who is serious enough to step on stage and be judged.</strong> If that's you, this is where your prep begins.
+  </div>
+
+  <div class="who-section">
+    <div class="section-label">Is This You?</div>
+    <div class="section-title">WHO THIS IS FOR</div>
+    <div class="who-grid">
+      <div class="who-item">You want to compete for the first time and don't know where to start</div>
+      <div class="who-item">You're already competing and want a coach who lives the process</div>
+      <div class="who-item">You're serious about doing it right, not just finishing, but coming in your best</div>
+      <div class="who-item">You want to compete in a tested natural federation like UKDFBA</div>
+      <div class="who-item">You're willing to do the work when it's laid out clearly in front of you</div>
+      <div class="who-item">You want a coach who doesn't just write plans. He follows them himself</div>
+    </div>
+  </div>
+
+  <div class="section-label">Choose Your Path</div>
+  <div class="section-title" style="margin-bottom:20px;">COACHING OPTIONS</div>
+  <div class="tiers">
+    <div class="tier">
+      <div class="tier-name">Physique Builder</div>
+      <div class="tier-tagline">Build a lean, strong physique using the same principles applied in competition prep</div>
+      <div class="tier-price"><span class="amount">£150</span><span class="period">/ month</span></div>
+      <div class="tier-includes">What's included</div>
+      <ul class="tier-features">
+        <li>Custom training programme</li>
+        <li>Custom nutrition plan</li>
+        <li>Custom cardio protocol</li>
+        <li>Coaching app with daily metric tracking</li>
+        <li>Weekly progress reviews with photo analysis</li>
+        <li>Weekly plan adjustments based on your response</li>
+        <li>Mid-week check-ins</li>
+        <li>Client group community</li>
+      </ul>
+    </div>
+    <div class="tier featured">
+      <div class="tier-name">Competition Prep</div>
+      <div class="tier-tagline">Full prep coaching from where you are now to standing on stage</div>
+      <div class="tier-price"><span class="amount">£250</span><span class="period">/ month</span></div>
+      <div class="tier-includes">Everything in Physique Builder, plus</div>
+      <ul class="tier-features">
+        <li>Show and federation selection guidance</li>
+        <li>Full prep timeline, phase by phase breakdown</li>
+        <li>Peak week protocol (fully personalised)</li>
+        <li>Show day guidance — timing, backstage, pump up</li>
+        <li>Posing feedback via video review</li>
+        <li>Post-show reverse diet protocol</li>
+        <li>Mindset and mental prep support throughout</li>
+        <li>Priority check-ins during final 4 weeks of prep</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="process-section">
+    <div class="section-label">The Process</div>
+    <div class="section-title">HOW IT WORKS</div>
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-content"><h4>You reach out</h4><p>Message via WhatsApp. Tell me where you are, what you're working towards, and when you want to compete. We'll figure out if we're a good fit.</p></div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-content"><h4>Onboarding and baseline</h4><p>You fill out a detailed intake covering your current stats, training history, diet, and lifestyle. I build your plan from the ground up around your specific starting point.</p></div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-content"><h4>Weekly review cycle</h4><p>Every week you submit weight, photos, and biofeedback through the app. I review, adjust, and have your updated plan ready for the start of every new week.</p></div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-content"><h4>Ongoing support</h4><p>You're not left to figure it out between check-ins. Mid-week support, group community, and increased contact in the final weeks of prep when it matters most.</p></div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">05</div>
+      <div class="step-content"><h4>Show day and beyond</h4><p>Peak week management, show day logistics, and a structured post-show reverse diet protocol. The work doesn't stop when you step off stage.</p></div>
+    </div>
+  </div>
+
+  <div class="bio-section">
+    <div class="bio-header">
+      <div class="bio-icon">🏆</div>
+      <div>
+        <div class="bio-name">Your Coach, Ade</div>
+        <div class="bio-title">Natural Bodybuilder · UKDFBA Competitor · Online Coach</div>
+      </div>
+    </div>
+    <div class="bio-text">
+      I've been coaching for 4 years, starting as a certified PT before taking my practice fully online. Every client I work with gets a plan built on the same principles I apply to myself.<br><br>
+      I'm a UKDFBA competitor and natural bodybuilder who documents the entire prep process in real time. In April 2025 I competed in my first ever show, PCA First Timers 2, and won the overall medal. I don't coach methods I don't live. What I bring to your prep isn't theory. It's the same system I've used to get myself stage-ready and win, applied specifically to you.
+    </div>
+    <div class="bio-stats">
+      <div class="bio-stat"><span class="num">4</span><span class="label">Years Coaching</span></div>
+      <div class="bio-stat"><span class="num">🥇</span><span class="label">Overall Winner</span></div>
+      <div class="bio-stat"><span class="num">PCA</span><span class="label">First Timers 2 · April 2025</span></div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h3>READY TO START?</h3>
+    <p>Message directly on WhatsApp. No forms, no waiting. Just tell me where you are and what you're working towards.</p>
+    <a class="cta-btn" href="https://wa.me/447466770383?text=Hi Ade, I wanted to get in touch about competition prep coaching. Can we talk?" target="_blank">Message Me on WhatsApp</a>
+    <div class="cta-note">Competition Prep coaching is capped at 8 clients for now.</div>
+  </div>
+
+</div>
+</body>
+</html>
